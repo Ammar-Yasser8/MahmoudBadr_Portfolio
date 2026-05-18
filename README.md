@@ -49,3 +49,10 @@ To configure and run the .NET Core backend API:
    dotnet run
    ```
 The interactive Swagger playground will automatically open on `http://localhost:5000/swagger`.
+
+## 🌐 Dynamic API Connection Configurations
+To eliminate hardcoded routing errors during staging, the frontend is built with a dynamic central environment router (`src/config.js`):
+```javascript
+const API_BASE_URL = "https://mahmoudbadr.runasp.net";
+```
+This ensures the client automatically synchronizes with your live production cloud database!
