@@ -17,3 +17,9 @@ This repository hosts a robust **Full-Stack Application** built with **React** o
 * **Vite**: Ultra-fast hot-reloading development bundler.
 * **Lucide Icons**: Clean, light SVG iconography.
 * **CSS Custom Properties**: Harmonious vanilla styling system (no heavy utility libraries).
+
+## 🗄️ Backend Architecture & Tech Stack
+* **ASP.NET Core Web API (.NET 10.0)**: Production-grade REST API backend.
+* **Entity Framework Core**: Code-First Object-Relational Mapper (ORM).
+* **SQLite / SQL Server**: Production ready relational databases.
+* **Swagger/OpenAPI**: Built-in interactive sandbox testing environment.
