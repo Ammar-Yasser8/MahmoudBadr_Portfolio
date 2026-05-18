@@ -66,3 +66,11 @@ To ensure React Router routes (such as `/admin` or `/login`) load seamlessly wit
 ## ⚡ WebP Performance Optimizations
 * **Automated Client-Side WebP Compressor**: Before saving files to the server, raw image uploads are scaled down to HD dimensions (`1920x1080`) and converted into light `82% quality` WebP files. This speeds up upload speeds by **10x** and website load times immensely.
 * **Preconnect Handshake Optimization**: Injected preconnect link headers directly into `index.html` to perform TLS handshakes to your backend API domain in parallel while downloading client bundles, speeding up rendering by **300ms–500ms**.
+
+## 🔑 Administrative Dashboard Credentials
+Access the CMS admin dashboard by navigating to `/admin`.
+* **Username**: `admin`
+* **Password**: `admin123`
+
+---
+*Created with ❤️ by **Mahmoud Badr**.*
