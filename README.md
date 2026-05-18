@@ -73,4 +73,4 @@ Access the CMS admin dashboard by navigating to `/admin`.
 * **Password**: `admin123`
 
 ---
-*Created with ❤️ by **Mahmoud Badr**.*
+*Developed with ❤️ by **Ammar Yasser** for **Mahmoud Badr**.*
