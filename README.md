@@ -32,3 +32,20 @@ npm install
 npm run dev
 ```
 The development server will spin up on `http://localhost:5173`.
+
+## ⚙️ Backend Local Setup
+To configure and run the .NET Core backend API:
+1. Restore core dependencies:
+   ```bash
+   cd Backend/Portfolio.API
+   dotnet restore
+   ```
+2. Apply database migrations:
+   ```bash
+   dotnet ef database update
+   ```
+3. Start the Web API server:
+   ```bash
+   dotnet run
+   ```
+The interactive Swagger playground will automatically open on `http://localhost:5000/swagger`.
