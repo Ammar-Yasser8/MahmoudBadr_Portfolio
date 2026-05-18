@@ -56,3 +56,9 @@ To eliminate hardcoded routing errors during staging, the frontend is built with
 const API_BASE_URL = "https://mahmoudbadr.runasp.net";
 ```
 This ensures the client automatically synchronizes with your live production cloud database!
+
+## 🧭 Single Page Application (SPA) Routing Fallback Configs
+To ensure React Router routes (such as `/admin` or `/login`) load seamlessly without throwing 404 errors, the repository includes out-of-the-box routing configurations in the `public` folder:
+* **IIS (web.config)**: Rewrite rules to redirect all incoming routing requests to `index.html`.
+* **Netlify (_redirects)**: Fallback rewrite rules (`/* /index.html 200`).
+* **Vercel (vercel.json)**: Fallback routing setup.
