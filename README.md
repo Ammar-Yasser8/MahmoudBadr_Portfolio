@@ -23,3 +23,12 @@ This repository hosts a robust **Full-Stack Application** built with **React** o
 * **Entity Framework Core**: Code-First Object-Relational Mapper (ORM).
 * **SQLite / SQL Server**: Production ready relational databases.
 * **Swagger/OpenAPI**: Built-in interactive sandbox testing environment.
+
+## 🚀 Frontend Local Setup
+To run the React development server locally:
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+The development server will spin up on `http://localhost:5173`.
