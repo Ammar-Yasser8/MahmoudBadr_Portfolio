@@ -1,0 +1,1 @@
+# Placeholder to ensure wwwroot is created at startup so that static files middleware initializes correctly.

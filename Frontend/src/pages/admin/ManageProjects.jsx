@@ -4,6 +4,7 @@ import FileUpload from '../../components/FileUpload';
 
 const ManageProjects = () => {
   const [projects, setProjects] = useState([]);
+  const [editingId, setEditingId] = useState(null);
   const [title, setTitle] = useState('');
   const [brief, setBrief] = useState('');
   const [category, setCategory] = useState('');
@@ -23,19 +24,44 @@ const ManageProjects = () => {
     }
   };
 
-  const handleAdd = async (e) => {
+  const resetForm = () => {
+    setEditingId(null);
+    setTitle('');
+    setBrief('');
+    setCategory('');
+    setThumbnailUrl('');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`${API_BASE_URL}/api/admin/projects`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Title: title, Brief: brief, Category: category, ThumbnailUrl: thumbnailUrl })
-      });
-      setTitle(''); setBrief(''); setCategory(''); setThumbnailUrl('');
+      if (editingId) {
+        await fetch(`${API_BASE_URL}/api/admin/projects/${editingId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ Title: title, Brief: brief, Category: category, ThumbnailUrl: thumbnailUrl })
+        });
+      } else {
+        await fetch(`${API_BASE_URL}/api/admin/projects`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ Title: title, Brief: brief, Category: category, ThumbnailUrl: thumbnailUrl })
+        });
+      }
+      resetForm();
       fetchProjects();
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleEdit = (p) => {
+    setEditingId(p.Id);
+    setTitle(p.Title);
+    setBrief(p.Brief);
+    setCategory(p.Category);
+    setThumbnailUrl(p.ThumbnailUrl);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id) => {
@@ -53,8 +79,15 @@ const ManageProjects = () => {
       <h2 style={{ marginBottom: '2rem' }}>Manage Projects</h2>
       
       <div style={{ background: 'var(--bg-card)', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid var(--border-color)' }}>
-        <h3 style={{ marginBottom: '1rem' }}>Add New Project</h3>
-        <form onSubmit={handleAdd} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <h3 style={{ margin: 0 }}>{editingId ? 'Edit Project' : 'Add New Project'}</h3>
+          {editingId && (
+            <button type="button" onClick={resetForm} className="btn-secondary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.9rem' }}>
+              Cancel Edit
+            </button>
+          )}
+        </div>
+        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr' }}>
           <input className="input-field" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} required />
           <input className="input-field" placeholder="Category (e.g. Cinematic)" value={category} onChange={e => setCategory(e.target.value)} required />
           <input className="input-field" placeholder="Brief" value={brief} onChange={e => setBrief(e.target.value)} style={{ gridColumn: '1 / -1' }} required />
@@ -70,7 +103,9 @@ const ManageProjects = () => {
             )}
           </div>
 
-          <button type="submit" className="btn-primary" style={{ gridColumn: '1 / -1' }}>Add Project</button>
+          <button type="submit" className="btn-primary" style={{ gridColumn: '1 / -1' }}>
+            {editingId ? 'Update Project' : 'Add Project'}
+          </button>
         </form>
       </div>
 
@@ -81,7 +116,10 @@ const ManageProjects = () => {
               <h4 style={{ marginBottom: '0.25rem' }}>{p.Title} <span style={{ fontSize: '0.8rem', color: 'var(--accent-red)', marginLeft: '0.5rem' }}>{p.Category}</span></h4>
               <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{p.Brief}</p>
             </div>
-            <button onClick={() => handleDelete(p.Id)} className="btn-secondary" style={{ padding: '0.5rem 1rem', color: 'var(--accent-red)', borderColor: 'var(--accent-red)' }}>Delete</button>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button onClick={() => handleEdit(p)} className="btn-secondary" style={{ padding: '0.5rem 1rem' }}>Edit</button>
+              <button onClick={() => handleDelete(p.Id)} className="btn-secondary" style={{ padding: '0.5rem 1rem', color: 'var(--accent-red)', borderColor: 'var(--accent-red)' }}>Delete</button>
+            </div>
           </div>
         ))}
       </div>

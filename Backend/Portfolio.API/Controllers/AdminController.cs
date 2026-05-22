@@ -131,6 +131,22 @@ namespace Portfolio.API.Controllers
         // --- PROJECTS ---
         [HttpPost("projects")]
         public async Task<IActionResult> AddProject([FromBody] Project project) { _context.Projects.Add(project); await _context.SaveChangesAsync(); return Ok(project); }
+        
+        [HttpPut("projects/{id}")]
+        public async Task<IActionResult> UpdateProject(int id, [FromBody] Project project) 
+        { 
+            var existing = await _context.Projects.FindAsync(id); 
+            if (existing == null) return NotFound(); 
+            
+            existing.Title = project.Title;
+            existing.Brief = project.Brief;
+            existing.Category = project.Category;
+            existing.ThumbnailUrl = project.ThumbnailUrl;
+            
+            await _context.SaveChangesAsync(); 
+            return Ok(existing); 
+        }
+
         [HttpDelete("projects/{id}")]
         public async Task<IActionResult> DeleteProject(int id) { var p = await _context.Projects.FindAsync(id); if (p != null) { _context.Projects.Remove(p); await _context.SaveChangesAsync(); } return Ok(); }
 
